@@ -2,6 +2,7 @@
 
 const generate = require(`./generate`);
 const version = require(`./version`);
+const chalk = require(`chalk`);
 
 const name = `--help`;
 const description = `печатает этот текст`;
@@ -24,6 +25,6 @@ module.exports = {
   name,
   description,
   run() {
-    console.info(text);
+    console.info(chalk.gray(text));
   }
 };
