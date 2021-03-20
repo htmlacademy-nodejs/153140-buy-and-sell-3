@@ -2,6 +2,7 @@
 
 const generate = require(`./generate`);
 const version = require(`./version`);
+const server = require(`./server`);
 const chalk = require(`chalk`);
 
 const name = `--help`;
@@ -10,6 +11,7 @@ const info = {
   [version.name]: version.description,
   [name]: description,
   [generate.name]: generate.description,
+  [server.name]: server.description,
 };
 
 const text = `
