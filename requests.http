@@ -1,0 +1,54 @@
+# Список категорий
+GET http://localhost:3000/api/categories
+###
+# Список объявлений
+GET http://localhost:3000/api/offers
+###
+# Одно объявление
+GET http://localhost:3000/api/offers/pgreYC
+###
+# Список комментариев
+GET http://localhost:3000/api/offers/pgreYC/comments
+###
+# Поиск
+GET http://localhost:3000/api/search?query=куплю
+###
+# Удаление объявления
+DELETE http://localhost:3000/api/offers/pgreYC
+###
+# Удаление комментария объявления
+DELETE http://localhost:3000/api/offers/pgreYC/comments/dpcFq7
+###
+# Добавление нового объявления
+POST http://localhost:3000/api/offers
+Content-Type: application/json
+
+{
+  "category": ["Разное"],
+  "description": "При покупке с меня бесплатная доставка в черте города. Две страницы заляпаны свежим кофе. Пользовались бережно и только по большим праздникам., Бонусом отдам все аксессуары.",
+  "picture": "item03.jpg",
+  "title": "Продам новую приставку Sony Playstation 5.",
+  "sum": 42698,
+  "type": "offer"
+}
+###
+# Редактирование нового объявления
+PUT http://localhost:3000/api/offers/pgreYC
+Content-Type: application/json
+
+{
+  "category": ["Разное"],
+  "description": "При покупке с меня бесплатная доставка в черте города. Две страницы заляпаны свежим кофе. Пользовались бережно и только по большим праздникам., Бонусом отдам все аксессуары.",
+  "picture": "item02.jpg",
+  "title": "Куплю породистого кота.",
+  "sum": 42698,
+  "type": "offer"
+}
+###
+# Добавление нового комментария
+POST http://localhost:3000/api/offers/pgreYC/comments
+Content-Type: application/json
+
+{
+  "text": "Полезная вещица"
+}
