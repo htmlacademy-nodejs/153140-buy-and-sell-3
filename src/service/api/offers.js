@@ -6,9 +6,8 @@ const offerValidator = require(`../middlewares/offerValidator`);
 const offerExist = require(`../middlewares/offerExist`);
 const commentValidator = require(`../middlewares/commentValidator`);
 
-const route = new Router();
-
 module.exports = (app, offersService, commentsService) => {
+  const route = new Router();
   app.use(`/offers`, route);
   // GET /api/offers - возвращает список объявлений
   route.get(`/`, (req, res) => {

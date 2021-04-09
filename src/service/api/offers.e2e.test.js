@@ -144,8 +144,8 @@ describe(`API correctly deletes an offer`, () => {
   });
 
   test(`Status code 200`, () => expect(response.statusCode).toBe(HttpCode.OK));
-  test(`Returns deleted offer`, () => expect(response.body.id).toBe(`sFWH07`));
-  test(`Offer count is 2 now`, () => request(app).get(`/offers`).expect((res) => expect(res.body.length).toBe(2)));
+  test(`Returns deleted offer`,  () => expect(response.body.id).toBe(`sFWH07`));
+  test(`Offer count is 2 now`,  () => request(app).get(`/offers`).expect((res) => expect(res.body.length).toBe(2)));
 });
 
 test(`API refuses to delete non-existent offer`, () => {
@@ -194,6 +194,7 @@ test(`API refuses to create a comment to non-existent offer and returns status c
 test(`API refuses to create a comment when data is invalid, and returns status code 400`, () => {
   const app = createAPI();
 
+  // TODO
   return request(app).post(`/offers/sFWH07/comments`).send({}).expect(HttpCode.BAD_REQUEST);
 });
 

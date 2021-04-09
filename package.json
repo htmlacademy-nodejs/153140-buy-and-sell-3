@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Куплю. Продам",
   "main": "./src/service/service.js",
+  "jest": {
+    "verbose": true
+  },
   "scripts": {
     "start-front-server": "nodemon ./src/express/index.js",
     "test": "npm run eslint && npm run test::rest",
