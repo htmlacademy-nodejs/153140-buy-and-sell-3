@@ -194,7 +194,6 @@ test(`API refuses to create a comment to non-existent offer and returns status c
 test(`API refuses to create a comment when data is invalid, and returns status code 400`, () => {
   const app = createAPI();
 
-  // TODO
   return request(app).post(`/offers/sFWH07/comments`).send({}).expect(HttpCode.BAD_REQUEST);
 });
 
