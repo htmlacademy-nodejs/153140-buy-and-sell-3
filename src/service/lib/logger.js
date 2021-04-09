@@ -3,7 +3,7 @@
 const pino = require(`pino`);
 const {Env} = require(`../../constants`);
 
-const LOG_FILE = `./service/logs/api.log`;
+const LOG_FILE = `./src/service/logs/api.log`;
 const isDevMode = process.env.NODE_ENV === Env.DEVELOPMENT;
 const defaultLogLevel = isDevMode ? `info` : `error`;
 const logger = pino({
