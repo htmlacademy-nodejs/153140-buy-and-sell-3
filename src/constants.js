@@ -18,7 +18,11 @@ const HttpCode = {
 };
 const MAX_ID_LENGTH = 6;
 const API_PREFIX = `/api`;
+const Env = {
+  DEVELOPMENT: `development`,
+  PRODUCTION: `production`
+};
 
 module.exports = {
-  DEFAULT_COMMAND, USER_ARGV_INDEX, ExitCode, HttpCode, MAX_ID_LENGTH, API_PREFIX
+  DEFAULT_COMMAND, USER_ARGV_INDEX, ExitCode, HttpCode, MAX_ID_LENGTH, API_PREFIX, Env
 };

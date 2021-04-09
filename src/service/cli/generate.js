@@ -71,10 +71,10 @@ module.exports = {
   name: `--generate`,
   description: `формирует файл mocks.json`,
   async run(args) {
-    const sentences = await readContent(FILE_SENTENCES);
-    const titles = await readContent(FILE_TITLES);
-    const categories = await readContent(FILE_CATEGORIES);
-    const comments = await readContent(FILE_COMMENTS);
+    const files = [FILE_TITLES, FILE_SENTENCES, FILE_CATEGORIES, FILE_COMMENTS];
+    const requests = files.map((item) => readContent(item));
+    const result = await Promise.all(requests);
+    const [titles, sentences, categories, comments] = result;
 
     const [count] = args;
     const countOffer = Number.parseInt(count, 10) || DEFAULT_COUNT;
