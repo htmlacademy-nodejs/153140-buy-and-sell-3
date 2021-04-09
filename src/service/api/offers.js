@@ -6,9 +6,8 @@ const offerValidator = require(`../middlewares/offerValidator`);
 const offerExist = require(`../middlewares/offerExist`);
 const commentValidator = require(`../middlewares/commentValidator`);
 
-const route = new Router();
-
 module.exports = (app, offersService, commentsService) => {
+  const route = new Router();
   app.use(`/offers`, route);
   // GET /api/offers - возвращает список объявлений
   route.get(`/`, (req, res) => {
@@ -38,7 +37,7 @@ module.exports = (app, offersService, commentsService) => {
     return res.status(HttpCode.CREATED).json(offer);
   });
   // PUT /api/offers/:offerId - редактирует определённое объявление
-  route.put(`/:offerId`, offerValidator, (req, res) => {
+  route.put(`/:offerId`, offerValidator, offerExist(offersService), (req, res) => {
     const {offerId} = req.params;
     const offer = offersService.findOne(offerId);
     const updated = offersService.update(offerId, req.body);
@@ -76,7 +75,7 @@ module.exports = (app, offersService, commentsService) => {
     const {offer} = res.locals;
     const comment = commentsService.create(offer, req.body);
 
-    return res.status(HttpCode.OK).json(comment);
+    return res.status(HttpCode.CREATED).json(comment);
   });
   // DELETE /api/offers/:offerId/comments/:commentId — удаляет из определённой публикации комментарий с идентификатором
   route.delete(`/:offerId/comments/:commentId`, offerExist(offersService), (req, res) => {

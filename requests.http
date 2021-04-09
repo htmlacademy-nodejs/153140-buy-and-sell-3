@@ -5,10 +5,10 @@ GET http://localhost:3000/api/categories
 GET http://localhost:3000/api/offers
 ###
 # Одно объявление
-GET http://localhost:3000/api/offers/pgreYC
+GET http://localhost:3000/api/offers/sFWH07
 ###
 # Список комментариев
-GET http://localhost:3000/api/offers/pgreYC/comments
+GET http://localhost:3000/api/offers/sFWH07/comments
 ###
 # Поиск
 GET http://localhost:3000/api/search?query=куплю
@@ -17,7 +17,7 @@ GET http://localhost:3000/api/search?query=куплю
 DELETE http://localhost:3000/api/offers/pgreYC
 ###
 # Удаление комментария объявления
-DELETE http://localhost:3000/api/offers/pgreYC/comments/dpcFq7
+DELETE http://localhost:3000/api/offers/sFWH07/comments/dpcFq7
 ###
 # Добавление нового объявления
 POST http://localhost:3000/api/offers
@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 ###
 # Редактирование нового объявления
-PUT http://localhost:3000/api/offers/pgreYC
+PUT http://localhost:3000/api/offers/sFWH08
 Content-Type: application/json
 
 {
@@ -46,7 +46,7 @@ Content-Type: application/json
 }
 ###
 # Добавление нового комментария
-POST http://localhost:3000/api/offers/pgreYC/comments
+POST http://localhost:3000/api/offers/sFWH07/comments
 Content-Type: application/json
 
 {
