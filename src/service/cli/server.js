@@ -10,13 +10,15 @@ const DEFAULT_PORT = 3000;
 const app = express();
 app.use(express.json());
 app.use(API_PREFIX, routes);
-app.use((req, res) => {
+app.use((req, res, next) => {
   res.status(HttpCode.NOT_FOUND).send(`Not found`);
   logger.error(`Route not found: ${req.url}`);
+  next();
 });
 
-app.use((err, _req, _res, _next) => {
+app.use((err, req, res, next) => {
   logger.error(`An error occured on processing request: ${err.message}`);
+  next();
 });
 
 app.use((req, res, next) => {
