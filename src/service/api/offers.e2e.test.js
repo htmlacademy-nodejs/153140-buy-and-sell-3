@@ -64,7 +64,6 @@ describe(`API creates an offer if data is valid`, () => {
   test(`Returns offer created`, () => expect(response.body).toEqual(expect.objectContaining(newOffer)));
   test(`Offers count is changed`, () => request(app).get(`/offers`).expect((res) => expect(res.body.length).toBe(4)));
 });
-
 describe(`API refuses to create an offer if data is invalid`, () => {
   const newOffer = {
     category: `Котики`,
@@ -106,8 +105,7 @@ describe(`API changes existent offer`, () => {
   test(`Returns changed offer`, () => expect(response.body).toEqual(expect.objectContaining(newOffer)));
   test(`Offer is really changed`, () => request(app).get(`/offers/sFWH07`).expect((res) => expect(res.body.title).toBe(`Дам погладить котика`)));
 });
-
-test(`API returns status code 404 when trying to change non-existent offer`, () => {
+describe(`API refuses to change existent offer`, () => {
   const app = createAPI();
   const validOffer = {
     category: `Это`,
@@ -117,12 +115,6 @@ test(`API returns status code 404 when trying to change non-existent offer`, () 
     type: `однако`,
     sum: 404
   };
-
-  return request(app).put(`/offers/NOEXST`).send(validOffer).expect(HttpCode.NOT_FOUND);
-});
-
-test(`API returns status code 400 when trying to change an offer with invalid data`, () => {
-  const app = createAPI();
   const invalidOffer = {
     category: `Это`,
     title: `невалидный`,
@@ -131,7 +123,8 @@ test(`API returns status code 400 when trying to change an offer with invalid da
     type: `нет поля sum`
   };
 
-  return request(app).put(`/offers/NOEXST`).send(invalidOffer).expect(HttpCode.BAD_REQUEST);
+  test(`API returns status code 404 when trying to change non-existent offer`, () => request(app).put(`/offers/NOEXST`).send(validOffer).expect(HttpCode.NOT_FOUND));
+  test(`API returns status code 400 when trying to change an offer with invalid data`, () => request(app).put(`/offers/NOEXST`).send(invalidOffer).expect(HttpCode.BAD_REQUEST));
 });
 
 // DELETE /api/offers/:offerId - удаляет определённое объявление
@@ -147,11 +140,9 @@ describe(`API correctly deletes an offer`, () => {
   test(`Returns deleted offer`,  () => expect(response.body.id).toBe(`sFWH07`));
   test(`Offer count is 2 now`,  () => request(app).get(`/offers`).expect((res) => expect(res.body.length).toBe(2)));
 });
-
-test(`API refuses to delete non-existent offer`, () => {
+describe(`API refuses to delete an offer`, () => {
   const app = createAPI();
-
-  return request(app).delete(`/offers/NOEXST`).expect(HttpCode.NOT_FOUND);
+  test(`API refuses to delete non-existent offer`, () => request(app).delete(`/offers/NOEXST`).expect(HttpCode.NOT_FOUND));
 });
 
 // GET /api/offers/:offerId/comments — возвращает список комментариев определённого объявления
@@ -184,17 +175,11 @@ describe(`API creates a comment if data is valid`, () => {
   test(`Returns comment created`, () => expect(response.body).toEqual(expect.objectContaining(newComment)));
   test(`Comments count is changed`, () => request(app).get(`/offers/sFWH07/comments`).expect((res) => expect(res.body.length).toBe(2)));
 });
-
-test(`API refuses to create a comment to non-existent offer and returns status code 404`, () => {
+describe(`API refuses to create a comment`, () => {
   const app = createAPI();
 
-  return request(app).post(`/offers/NOEXST/comments`).send({text: `Неважно`}).expect(HttpCode.NOT_FOUND);
-});
-
-test(`API refuses to create a comment when data is invalid, and returns status code 400`, () => {
-  const app = createAPI();
-
-  return request(app).post(`/offers/sFWH07/comments`).send({}).expect(HttpCode.BAD_REQUEST);
+  test(`API refuses to create a comment to non-existent offer and returns status code 404`, () => request(app).post(`/offers/NOEXST/comments`).send({text: `Неважно`}).expect(HttpCode.NOT_FOUND));
+  test(`API refuses to create a comment when data is invalid, and returns status code 400`, () => request(app).post(`/offers/sFWH07/comments`).send({}).expect(HttpCode.BAD_REQUEST));
 });
 
 // DELETE /api/offers/:offerId/comments/:commentId — удаляет из определённой публикации комментарий с идентификатором
@@ -210,15 +195,9 @@ describe(`API correctly deletes a comment`, () => {
   test(`Returns comment deleted`, () => expect(response.body.id).toBe(`1JwWAH`));
   test(`Comments count is 0 now`, () => request(app).get(`/offers/sFWH07/comments`).expect((res) => expect(res.body.length).toBe(0)));
 });
-
-test(`API refuses to delete non-existent comment`, () => {
+describe(`API refuses to delete a comment`, () => {
   const app = createAPI();
 
-  return request(app).delete(`/offers/GxdTgz/comments/NOEXST`).expect(HttpCode.NOT_FOUND);
-});
-
-test(`API refuses to delete a comment to non-existent offer`, () => {
-  const app = createAPI();
-
-  return request(app).delete(`/offers/NOEXST/comments/kqME9j`).expect(HttpCode.NOT_FOUND);
+  test(`API refuses to delete non-existent comment`, () => request(app).delete(`/offers/GxdTgz/comments/NOEXST`).expect(HttpCode.NOT_FOUND));
+  test(`API refuses to delete a comment to non-existent offer`, () => request(app).delete(`/offers/NOEXST/comments/kqME9j`).expect(HttpCode.NOT_FOUND));
 });
